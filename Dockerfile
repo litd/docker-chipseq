@@ -1,4 +1,4 @@
-# % Last Change: Mon May 24 10:58:07 AM 2021 CDT
+# % Last Change: Mon May 24 11:48:55 AM 2021 CDT
 # Base Image
 FROM debian:10.9
 
@@ -12,6 +12,7 @@ ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
 RUN apt-get update --fix-missing && \
     apt-get install -y --no-install-recommends \
     bc \
+    bedtools \
     bwa \
     bzip2 \
     curl \
