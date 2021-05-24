@@ -1,4 +1,4 @@
-# % Last Change: Mon May 24 11:48:55 AM 2021 CDT
+# % Last Change: Mon May 24 11:55:08 AM 2021 CDT
 # Base Image
 FROM debian:10.9
 
@@ -37,6 +37,7 @@ RUN apt-get update --fix-missing && \
     chmod +x /usr/bin/methylQA && \
     echo 'install.packages("ggplot2",repos="http://cran.us.r-project.org")' > /opt/packages.R && \
     echo 'install.packages("cowplot",repos="http://cran.us.r-project.org")' >> /opt/packages.R && \
+    echo 'install.packages("jsonlite",repos="http://cran.us.r-project.org")' >> /opt/packages.R && \
     /usr/bin/Rscript /opt/packages.R && \
     rm /opt/packages.R && \
     mkdir -p /usr/local/lib/R/site-library && \
