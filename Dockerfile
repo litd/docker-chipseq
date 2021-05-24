@@ -1,25 +1,28 @@
-# % Last Change: Sun May 23 11:17:14 PM 2021 CDT
+# % Last Change: Mon May 24 10:58:07 AM 2021 CDT
 # Base Image
-#FROM continuumio/miniconda3:4.9.2
 FROM debian:10.9
 
 # File Author / Maintainer
 MAINTAINER Tiandao Li <litd99@gmail.com>
 
 ENV PATH /opt/conda/bin:$PATH
+ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
 
 # Installation
 RUN apt-get update --fix-missing && \
     apt-get install -y --no-install-recommends \
+    bc \
     bwa \
     bzip2 \
     curl \
     cutadapt \
     fastqc \
     g++ \
+    jq \
     libgsl-dev \
     macs \
     make \
+    r-base \
     samtools \
     sra-toolkit \
     unzip \
@@ -31,6 +34,11 @@ RUN apt-get update --fix-missing && \
     make && \
     curl -fsSL http://regmedsrv1.wustl.edu/Public_SPACE/litd/Public_html/pkg/methylQA -o /usr/bin/methylQA && \
     chmod +x /usr/bin/methylQA && \
+    echo 'install.packages("ggplot2",repos="http://cran.us.r-project.org")' > /opt/packages.R && \
+    echo 'install.packages("cowplot",repos="http://cran.us.r-project.org")' >> /opt/packages.R && \
+    /usr/bin/Rscript /opt/packages.R && \
+    rm /opt/packages.R && \
+    mkdir -p /usr/local/lib/R/site-library && \
     apt-get clean all && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/log/dpkg.log /var/tmp/*
 
